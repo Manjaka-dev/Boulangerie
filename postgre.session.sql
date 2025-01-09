@@ -5,11 +5,6 @@ CREATE TABLE IF NOT EXISTS "categorie" (
     CONSTRAINT "unique_nom_categorie" UNIQUE("nom_categorie")
 );
 
--- Insertion de données dans la table categorie
-INSERT INTO "categorie" ("nom_categorie") VALUES
-('Pain'),
-('Biscuit'),
-('Boisson');
 
 -- Création de la table vente
 CREATE TABLE IF NOT EXISTS "vente" (
@@ -18,10 +13,6 @@ CREATE TABLE IF NOT EXISTS "vente" (
     "prix_total" NUMERIC(15,2) NOT NULL
 );
 
--- Insertion de données dans la table vente
-INSERT INTO "vente" ("date_vente", "prix_total") VALUES
-('2025-01-05 10:30:00', 150.75),
-('2025-01-06 11:45:00', 250.60);
 
 -- Création de la table unite
 CREATE TABLE IF NOT EXISTS "unite" (
@@ -30,11 +21,6 @@ CREATE TABLE IF NOT EXISTS "unite" (
     CONSTRAINT "unique_nom_unite" UNIQUE("nom_unite")
 );
 
--- Insertion de données dans la table unite
-INSERT INTO "unite" ("nom_unite") VALUES
-('Grammes'),
-('Litres'),
-('Pièces');
 
 -- Création de la table type_mouvement
 CREATE TABLE IF NOT EXISTS "type_mouvement" (
@@ -43,10 +29,6 @@ CREATE TABLE IF NOT EXISTS "type_mouvement" (
     CONSTRAINT "unique_nom_type_mouvement" UNIQUE("nom_type_mouvement")
 );
 
--- Insertion de données dans la table type_mouvement
-INSERT INTO "type_mouvement" ("nom_type_mouvement") VALUES
-('Entrée'),
-('Sortie');
 
 -- Création de la table detail_stock_ingredient
 CREATE TABLE IF NOT EXISTS "detail_stock_ingredient" (
@@ -59,10 +41,6 @@ CREATE TABLE IF NOT EXISTS "detail_stock_ingredient" (
         ON DELETE CASCADE
 );
 
--- Insertion de données dans la table detail_stock_ingredient
-INSERT INTO "detail_stock_ingredient" ("date_mouvement", "quantite", "id_type_mouvement") VALUES
-('2025-01-05', 100, 1),
-('2025-01-06', 50, 2);
 
 -- Création de la table produit
 CREATE TABLE IF NOT EXISTS "produit" (
@@ -77,13 +55,6 @@ CREATE TABLE IF NOT EXISTS "produit" (
         ON DELETE CASCADE
 );
 
--- Insertion de données dans la table produit
-INSERT INTO "produit" ("nom_produit", "prix_unitaire", "id_categorie") VALUES
-('Pain Complet', 1.50, 1),
-('Pain de Mie', 2.00, 1),
-('Biscuit Chocolat', 2.50, 2),
-('Biscuit Vanille', 2.30, 2),
-('Jus d’Orange', 3.00, 3);
 
 -- Création de la table detail_vente
 CREATE TABLE IF NOT EXISTS "detail_vente" (
@@ -99,12 +70,6 @@ CREATE TABLE IF NOT EXISTS "detail_vente" (
         ON DELETE CASCADE
 );
 
--- Insertion de données dans la table detail_vente
-INSERT INTO "detail_vente" ("quantite", "id_produit", "id_vente") VALUES
-(10, 1, 1),
-(5, 2, 1),
-(3, 3, 2),
-(7, 4, 2);
 
 -- Création de la table ingredient
 CREATE TABLE IF NOT EXISTS "ingredient" (
@@ -118,13 +83,6 @@ CREATE TABLE IF NOT EXISTS "ingredient" (
         ON DELETE CASCADE
 );
 
--- Insertion de données dans la table ingredient
-INSERT INTO "ingredient" ("nom_ingredient", "prix_unitaire", "id_unite") VALUES
-('Farine', 0.75, 1),
-('Sucre', 1.20, 1),
-('Chocolat', 2.00, 1),
-('Vanille', 0.50, 1),
-('Jus d’Orange', 2.00, 2);
 
 -- Création de la table stock_ingredient
 CREATE TABLE IF NOT EXISTS "stock_ingredient" (
@@ -136,13 +94,6 @@ CREATE TABLE IF NOT EXISTS "stock_ingredient" (
         ON DELETE CASCADE
 );
 
--- Insertion de données dans la table stock_ingredient
-INSERT INTO "stock_ingredient" ("quantite_ingredient", "id_ingredient") VALUES
-(500, 1),
-(300, 2),
-(100, 3),
-(200, 4),
-(1000, 5);
 
 -- Création de la table stock_produit
 CREATE TABLE IF NOT EXISTS "stock_produit" (
@@ -154,13 +105,6 @@ CREATE TABLE IF NOT EXISTS "stock_produit" (
         ON DELETE CASCADE
 );
 
--- Insertion de données dans la table stock_produit
-INSERT INTO "stock_produit" ("quantite_produit", "id_produit") VALUES
-(200, 1),
-(150, 2),
-(100, 3),
-(50, 4),
-(300, 5);
 
 -- Création de la table detail_stock_produit
 CREATE TABLE IF NOT EXISTS "detail_stock_produit" (
@@ -173,10 +117,6 @@ CREATE TABLE IF NOT EXISTS "detail_stock_produit" (
         ON DELETE CASCADE
 );
 
--- Insertion de données dans la table detail_stock_produit
-INSERT INTO "detail_stock_produit" ("date_mouvement", "quantite", "id_type_mouvement") VALUES
-('2025-01-05', 50, 1),
-('2025-01-06', 30, 2);
 
 -- Création de la table produit_ingredient
 CREATE TABLE IF NOT EXISTS "produit_ingredient" (
@@ -194,8 +134,3 @@ CREATE TABLE IF NOT EXISTS "produit_ingredient" (
         ON DELETE CASCADE
 );
 
--- Insertion de données dans la table produit_ingredient
-INSERT INTO "produit_ingredient" ("id_produit", "id_ingredient", "quantite_ingredient") VALUES
-(1, 1, 500), (1, 2, 300), (2, 1, 600), (2, 3, 400),
-(3, 2, 300), (3, 4, 200), (4, 1, 250), (4, 2, 150),
-(5, 5, 100);
