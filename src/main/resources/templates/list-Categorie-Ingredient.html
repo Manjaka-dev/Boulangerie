@@ -14,10 +14,10 @@
         <div>
             <h2>Ingrédients sélectionnés :</h2>
             <ul>
-                <li th:each="ingredient : ${ingredients}" th:text="${ingredient}"></li>
+                <li th:each="ingredient : ${ingredients}" th:text="${ingredient.nom}"></li>
             </ul>
             <!-- Passer les ingrédients sélectionnés dans un champ caché -->
-            <input type="hidden" name="ingredientIds" th:value="${ingredients}"/>
+            <input type="hidden" name="ingredientIds" th:value="${ingredientId}"/>
         </div>
 
         <!-- Choisir un type de produit (Radio buttons) -->

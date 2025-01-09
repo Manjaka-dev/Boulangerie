@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import prog.boulangerie.boul.base.Categorie;
 import prog.boulangerie.boul.repository.CategorieRepository;
+import prog.boulangerie.boul.repository.IngredientRepository;
 
 // @Controller
 // public class CategorieController {
@@ -45,19 +46,28 @@ public class CategorieController {
     @Autowired
     private CategorieRepository categorieRepository;
 
+    @Autowired
+    private IngredientRepository ingredientRepository;
+
     @PostMapping("/ajout-type")
     public String ajouterType(@RequestParam("ingredientIds") List<String> ingredientIds, Model model) {
         // Convertir les IDs reçus en List<Long>
-        List<Long> ingredientIdsList = new ArrayList<>();
+        List<Integer> ingredientIdsList = new ArrayList<>();
         for (String id : ingredientIds) {
-            ingredientIdsList.add(Long.parseLong(id));
+            ingredientIdsList.add(Integer.parseInt(id));
+        }
+
+        List<Long> ingredientIdsListLong = new ArrayList<>();
+        for (String id : ingredientIds) {
+            ingredientIdsListLong.add(Long.parseLong(id));
         }
 
         // Récupérer les catégories (types)
         List<Categorie> types = categorieRepository.findAll();
 
         // Ajouter les données au modèle
-        model.addAttribute("ingredients", ingredientIdsList);
+        model.addAttribute("ingredients", ingredientRepository.findAllById(ingredientIdsList));
+        model.addAttribute("ingredientId", ingredientIdsListLong);
         model.addAttribute("types", types);
 
         return "list-categorie-ingredient";
