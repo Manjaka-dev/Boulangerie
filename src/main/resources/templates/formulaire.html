@@ -7,7 +7,7 @@
 <body>
     <h1>Choisissez les ingrédients</h1>
 
-    <form action="#" th:action="@{/ajout-type}" method="post">
+    <form action="#" th:action="@{/chercher}" method="post">
         <div>
             <label for="ingredients">Sélectionnez les ingrédients :</label><br><br>
             <div th:each="ingredient : ${ingredients}">
@@ -16,6 +16,15 @@
             </div>
         </div>
         <br>
+        <div>
+            <h2>Choisissez un type de produit :</h2>
+            <div th:each="categorie : ${categories}">
+                <input type="radio" th:id="'type_' + ${categorie.id}" th:name="categorieId" th:value="${categorie.id}" />
+                <label th:for="'type_' + ${categorie.id}" th:text="${categorie.nom}"></label><br>
+            </div>
+        </div>
+        <br>
+        
         <button type="submit">Valider</button>
     </form>
 </body>

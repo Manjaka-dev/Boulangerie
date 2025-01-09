@@ -21,14 +21,7 @@ public class ProduitController {
     @Autowired
     private ProduitService produitService;
 
-    @PostMapping("/submit")
-    public String findProduitsByTypeAndIngredients(@RequestParam Integer typeId,
-            @RequestParam List<Integer> ingredientIds, Model model) {
-        model.addAttribute("produits", produitService.findProduitsByTypeAndIngredients(typeId, ingredientIds));
-        return "affiche-liste";
-    }
-
-    @PostMapping("/afficher-liste")
+    @PostMapping("/chercher")
     public String afficheListe(
             @RequestParam(required = false) String ingredientIds,
             @RequestParam(required = false) String categorieId,
