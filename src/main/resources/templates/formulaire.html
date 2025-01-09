@@ -2,30 +2,42 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choix des ingrédients</title>
+    <!-- Lien vers Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
-<body>
-    <h1>Choisissez les ingrédients</h1>
+<body class="bg-light">
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Choisissez les ingrédients</h1>
 
-    <form action="#" th:action="@{/chercher}" method="post">
-        <div>
-            <label for="ingredients">Sélectionnez les ingrédients :</label><br><br>
-            <div th:each="ingredient : ${ingredients}">
-                <input type="checkbox" th:id="'ingredient_' + ${ingredient.id}" th:name="ingredientIds" th:value="${ingredient.id}" />
-                <label th:for="'ingredient_' + ${ingredient.id}" th:text="${ingredient.nom}"></label><br>
+        <form action="#" th:action="@{/chercher}" method="post" class="bg-white p-4 shadow rounded">
+            <!-- Section Ingrédients -->
+            <div class="mb-4">
+                <label for="ingredients" class="form-label fw-bold">Sélectionnez les ingrédients :</label>
+                <div class="form-check" th:each="ingredient : ${ingredients}">
+                    <input class="form-check-input" type="checkbox" th:id="'ingredient_' + ${ingredient.id}" th:name="ingredientIds" th:value="${ingredient.id}" />
+                    <label class="form-check-label" th:for="'ingredient_' + ${ingredient.id}" th:text="${ingredient.nom}"></label>
+                </div>
             </div>
-        </div>
-        <br>
-        <div>
-            <h2>Choisissez un type de produit :</h2>
-            <div th:each="categorie : ${categories}">
-                <input type="radio" th:id="'type_' + ${categorie.id}" th:name="categorieId" th:value="${categorie.id}" />
-                <label th:for="'type_' + ${categorie.id}" th:text="${categorie.nom}"></label><br>
+
+            <!-- Section Type de produit -->
+            <div class="mb-4">
+                <h2 class="h5 fw-bold">Choisissez un type de produit :</h2>
+                <div class="form-check" th:each="categorie : ${categories}">
+                    <input class="form-check-input" type="radio" th:id="'type_' + ${categorie.id}" th:name="categorieId" th:value="${categorie.id}" />
+                    <label class="form-check-label" th:for="'type_' + ${categorie.id}" th:text="${categorie.nom}"></label>
+                </div>
             </div>
-        </div>
-        <br>
-        
-        <button type="submit">Valider</button>
-    </form>
+
+            <!-- Bouton Valider -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Valider</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Script Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
