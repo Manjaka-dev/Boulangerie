@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Choix des ingrédients</title>
+</head>
+<body>
+    <h1>Choisissez les ingrédients</h1>
+
+    <form action="#" th:action="@{/ajout-type}" method="post">
+        <div>
+            <label for="ingredients">Sélectionnez les ingrédients :</label><br><br>
+            <div th:each="ingredient : ${ingredients}">
+                <input type="checkbox" th:id="'ingredient_' + ${ingredient.id}" th:name="ingredientIds" th:value="${ingredient.id}" />
+                <label th:for="'ingredient_' + ${ingredient.id}" th:text="${ingredient.nom}"></label><br>
+            </div>
+        </div>
+
+        <br>
+        <button type="submit">Valider</button>
+    </form>
+</body>
+</html>

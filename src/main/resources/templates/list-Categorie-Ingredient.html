@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Choisir le type de produit</title>
+</head>
+<body>
+    <h1>Choisir un type de produit et voir les ingrédients</h1>
+
+    <!-- Formulaire pour la soumission -->
+    <form action="#" th:action="@{/afficher-liste}" method="post">
+
+        <!-- Liste des ingrédients -->
+        <div>
+            <h2>Ingrédients sélectionnés :</h2>
+            <ul>
+                <li th:each="ingredient : ${ingredients}" th:text="${ingredient}"></li>
+            </ul>
+            <!-- Passer les ingrédients sélectionnés dans un champ caché -->
+            <input type="hidden" name="ingredientIds" th:value="${ingredients}"/>
+        </div>
+
+        <!-- Choisir un type de produit (Radio buttons) -->
+        <div>
+            <h2>Choisissez un type de produit :</h2>
+            <div th:each="type : ${types}">
+                <input type="radio" th:id="'type_' + ${type.id}" th:name="categorieId" th:value="${type.id}" />
+                <label th:for="'type_' + ${type.id}" th:text="${type.nom}"></label><br>
+            </div>
+        </div>
+
+        <br>
+        <button type="submit">Valider</button>
+    </form>
+</body>
+</html>
