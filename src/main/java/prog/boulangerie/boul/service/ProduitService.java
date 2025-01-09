@@ -18,14 +18,14 @@ public class ProduitService {
     @Autowired
     private ProduitIngredientRepository produitIngredientRepository;
 
-    public List<Produit> findProduitsByTypeAndIngredients(Long typeId, List<Integer> ingredientIds) {
-        // Étape 1 : Récupérer les IDs des produits correspondant aux ingrédients
-        List<Long> produitIds = produitIngredientRepository.findProduitsByIngredientIds(ingredientIds, (int) ingredientIds.size());
-
+    public List<Produit> findProduitsByTypeAndIngredients(int typeId, List<Integer> ingredientIds) {
+        // Étape 1 : Trouver les produits correspondant aux ingrédients
+        List<Integer> produitIds = produitIngredientRepository.findProduitsByIngredientIds(ingredientIds, ingredientIds.size());
+    
         if (produitIds.isEmpty()) {
-            return List.of(); // Aucun produit correspondant
+            return List.of(); // Aucun produit trouvé
         }
-
+    
         // Étape 2 : Filtrer les produits par type
         return produitRepository.findByTypeAndIds(typeId, produitIds);
     }

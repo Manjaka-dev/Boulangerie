@@ -13,5 +13,5 @@ import prog.boulangerie.boul.base.Produit;
 public interface ProduitRepository extends JpaRepository<Produit, Long> {
 
     @Query("SELECT p FROM Produit p WHERE p.categorie.id = :typeId AND p.id IN :produitIds")
-    List<Produit> findByTypeAndIds(@Param("typeId") Long typeId, @Param("produitIds") List<Long> produitIds);
+    List<Produit> findByTypeAndIds(@Param("typeId") Integer typeId, @Param("produitIds") List<Integer> produitIds);
 }

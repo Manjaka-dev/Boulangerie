@@ -1,34 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Liste des Produits</title>
+    <title>Liste des produits</title>
 </head>
 <body>
     <h1>Liste des Produits</h1>
-
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Nom du Produit</th>
-                <th>Type de Produit</th>
-                <th>Ingrédients</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="produit : ${liste.produit}">
-                <td th:text="${produit.nomProduit}">Nom du Produit</td>
-                <td th:text="${produit.categorie.nomcategorie}">Type de Produit</td>
-                <td>
-                    <ul>
-                        <li th:each="ingredient : ${produit.ingredients}" th:text="${ingredient.nomIngredient}">Ingrédient</li>
-                    </ul>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <br>
-    <a href="/">Retour</a>
+    <div th:if="${liste.produit != null}">
+        <ul>
+            <li th:each="produit : ${liste.produit}" th:text="${produit.nom}">Nom du produit</li>
+        </ul>
+    </div>
+    <div th:if="${liste.produit == null}">
+        <p>Aucun produit disponible.</p>
+    </div>
 </body>
 </html>
+

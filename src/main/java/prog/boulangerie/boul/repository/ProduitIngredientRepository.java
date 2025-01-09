@@ -14,9 +14,11 @@ import prog.boulangerie.boul.base.ProduitIngredientId;
 public interface ProduitIngredientRepository extends JpaRepository<ProduitIngredient, ProduitIngredientId> {
 
     @Query("SELECT pi.produit.id " +
-           "FROM ProduitIngredient pi " +
-           "WHERE pi.ingredient.id IN :ingredientIds " +
-           "GROUP BY pi.produit.id " +
-           "HAVING COUNT(pi.ingredient.id) = :size")
-    List<Long> findProduitsByIngredientIds(@Param("ingredientIds") List<Integer> ingredientIds, @Param("size") int size);
+            "FROM ProduitIngredient pi " +
+            "WHERE pi.ingredient.id IN :ingredientIds " +
+            "GROUP BY pi.produit.id " +
+            "HAVING COUNT(pi.ingredient.id) = :size")
+    List<Integer> findProduitsByIngredientIds(@Param("ingredientIds") List<Integer> ingredientIds,
+            @Param("size") int size);
+
 }

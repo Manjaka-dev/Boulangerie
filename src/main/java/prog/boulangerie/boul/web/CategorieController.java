@@ -1,9 +1,7 @@
 package prog.boulangerie.boul.web;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import prog.boulangerie.boul.base.Categorie;
 import prog.boulangerie.boul.repository.CategorieRepository;
-import prog.boulangerie.boul.repository.IngredientRepository;
 
 // @Controller
 // public class CategorieController {
@@ -48,26 +45,21 @@ public class CategorieController {
     @Autowired
     private CategorieRepository categorieRepository;
 
-    @Autowired
-    private IngredientRepository ingredientRepository;
-
     @PostMapping("/ajout-type")
-    public String ajouterType(@RequestParam("ingredientIds") String[] ingredientIds, Model model) {
-
-        // Conversion du tableau de String en List<Long>
-        List<Integer> ingredientIdsList = new ArrayList<>();
+    public String ajouterType(@RequestParam("ingredientIds") List<String> ingredientIds, Model model) {
+        // Convertir les IDs reçus en List<Long>
+        List<Long> ingredientIdsList = new ArrayList<>();
         for (String id : ingredientIds) {
-            ingredientIdsList.add(Integer.parseInt(id));
+            ingredientIdsList.add(Long.parseLong(id));
         }
 
-        // Récupération de toutes les catégories
+        // Récupérer les catégories (types)
         List<Categorie> types = categorieRepository.findAll();
 
-        // Ajout des données au modèle pour les passer à la vue
-        model.addAttribute("ingredients", ingredientRepository.findAllById(ingredientIdsList));
+        // Ajouter les données au modèle
+        model.addAttribute("ingredients", ingredientIdsList);
         model.addAttribute("types", types);
 
-        // Retourner la vue "list-type-ingredient"
         return "list-categorie-ingredient";
     }
 
