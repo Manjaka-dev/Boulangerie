@@ -42,18 +42,20 @@ CREATE TABLE IF NOT EXISTS "detail_stock_ingredient" (
 );
 
 
--- Création de la table produit
+-- Création de la table produit avec une nouvelle colonne est_nature
 CREATE TABLE IF NOT EXISTS "produit" (
     "id_produit" SERIAL PRIMARY KEY,
     "nom_produit" VARCHAR(50) NOT NULL,
     "prix_unitaire" NUMERIC(15,2) NOT NULL,
     "id_categorie" INT NOT NULL,
+    "est_nature" BOOLEAN NOT NULL DEFAULT FALSE,
     CONSTRAINT "unique_nom_produit" UNIQUE("nom_produit"),
     CONSTRAINT "fk_produit_categorie"
         FOREIGN KEY ("id_categorie")
         REFERENCES "categorie"("id_categorie")
         ON DELETE CASCADE
 );
+
 
 
 -- Création de la table detail_vente

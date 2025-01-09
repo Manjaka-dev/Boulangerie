@@ -18,19 +18,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Produit {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_produit")
     private Long id;
 
     @Column(name = "nom_produit", nullable = false, unique = true)
-    private String nom;
+    private String nomProduit;
 
     @Column(name = "prix_unitaire", nullable = false)
-    private java.math.BigDecimal prixUnitaire;
+    private Double prixUnitaire;
+
+    @Column(name = "est_nature", nullable = false)
+    private Boolean estNature;
 
     @ManyToOne
     @JoinColumn(name = "id_categorie", nullable = false)
     private Categorie categorie;
-
 }
