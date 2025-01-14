@@ -1,5 +1,6 @@
 package prog.boulangerie.boul.web;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,14 +13,27 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import prog.boulangerie.boul.base.Produit;
+import prog.boulangerie.boul.base.ProduitMois;
+import prog.boulangerie.boul.repository.ProduitMoisRepository;
+import prog.boulangerie.boul.repository.ProduitRepository;
 import prog.boulangerie.boul.service.ProduitService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+
+
+
 
 @Controller
 public class ProduitController {
 
     @Autowired
     private ProduitService produitService;
+
+    @Autowired
+    private ProduitRepository produitRepository;
+
+    @Autowired
+    private ProduitMoisRepository produitMoisRepository;
 
     @PostMapping("/chercher")
     public String afficheListe(
@@ -76,5 +90,62 @@ public class ProduitController {
         model.addAttribute("liste", Map.of("produit", produits));
         return "affiche-liste";
     }
+
+    @GetMapping("/form-insert-produit")
+    public String getMethodName(@RequestParam String param) {
+        return "insertion-produit";
+    }
+
+    @PostMapping("/insert-produit")
+    public String postMethodName(
+        @RequestParam String nomProduit,
+        @RequestParam Double prixUnitaire,
+        @RequestParam Boolean nature  ) {
+        
+        produitRepository.save(new Produit(null, nomProduit, prixUnitaire, nature, null, null));
+        
+        return "redirect:/form-insert-produit";
+    }
+    
+    @GetMapping("/form-inserer-produit-moi")
+    public String getInsertProduitMois(Model model) {
+
+        List<Produit> produits = produitRepository.findAll();
+
+        model.addAttribute("produits", produits);
+
+        return "insert-produit-mois";
+    }
+
+    @PostMapping("/insert-produit-moi")
+    public String insertProduitMoi(
+        @RequestParam Long produitId
+    ) {
+
+        Produit produit = produitRepository.findById(produitId).get();
+
+        produitMoisRepository.save(new ProduitMois(null, produit, LocalDate.now()));
+        
+        return "redirect:/form-inserer-produit-moi";
+    }
+
+    @GetMapping("/afficher-produit-mois")
+    public String afficherProduitMoi(Model model) {
+        List<ProduitMois> produitMois = produitMoisRepository.findByDateConseil(LocalDate.now());
+
+        model.addAttribute("produitMois", produitMois);
+
+        return "afficher-liste-produit-mois";
+    }
+
+    @GetMapping("/liste-produits")
+    public String getListeProduit(Model model) {
+
+        List<Produit> produits = produitRepository.findAll();
+
+        model.addAttribute("produits", produits);
+        return "liste-produit";
+    }
+    
 
 }

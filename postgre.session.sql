@@ -136,3 +136,12 @@ CREATE TABLE IF NOT EXISTS "produit_ingredient" (
         ON DELETE CASCADE
 );
 
+-- Création de la table produit_mois
+CREATE TABLE IF NOT EXISTS "produit_mois" (
+    "id_produit_mois" SERIAL PRIMARY KEY,
+    "id_produit" INT NOT NULL,
+    "date_conseil" DATE NOT NULL,
+    CONSTRAINT "fk_produit_mois_produit"
+        FOREIGN KEY ("id_produit") REFERENCES "produit"("id_produit")
+        ON DELETE CASCADE
+);

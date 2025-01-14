@@ -29,7 +29,7 @@ public class VenteController {
     private VenteService venteService;
 
     // Afficher la liste des produits
-    @GetMapping("/liste-produit")
+    @GetMapping("/ajout-produit-panier")
     public String getListProduit(Model model) {
         List<Produit> produits = produitRepository.findAll();
         model.addAttribute("produits", produits);
