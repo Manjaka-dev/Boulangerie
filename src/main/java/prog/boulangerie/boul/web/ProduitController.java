@@ -20,9 +20,6 @@ import prog.boulangerie.boul.service.ProduitService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
-
-
 @Controller
 public class ProduitController {
 
@@ -98,45 +95,58 @@ public class ProduitController {
 
     @PostMapping("/insert-produit")
     public String postMethodName(
-        @RequestParam String nom,
-        @RequestParam Double prixUnitaire,
-        @RequestParam Boolean nature  ) {
-        
+            @RequestParam String nom,
+            @RequestParam Double prixUnitaire,
+            @RequestParam Boolean nature) {
+
         produitRepository.save(new Produit(null, nom, prixUnitaire, nature, null, null));
-        
+
         return "redirect:/form-insert-produit";
     }
-    
+
     @GetMapping("/form-inserer-produit-moi")
     public String getInsertProduitMois(Model model) {
 
         List<Produit> produits = produitRepository.findAll();
 
+        // Passer la liste des produits et la date actuelle au modèle
         model.addAttribute("produits", produits);
+        model.addAttribute("dateActuelle", LocalDate.now());
 
         return "insert-produit-mois";
     }
 
     @PostMapping("/insert-produit-moi")
     public String insertProduitMoi(
-        @RequestParam Long produitId
-    ) {
+            @RequestParam Long produitId,
+            @RequestParam String dateProduitMoi) {
+        // Convertir la chaîne de date en LocalDate
+        LocalDate dateProduit = LocalDate.parse(dateProduitMoi);
 
+        // Récupérer le produit
         Produit produit = produitRepository.findById(produitId).get();
 
-        produitMoisRepository.save(new ProduitMois(null, produit, LocalDate.now()));
-        
+        // Sauvegarder le produit du mois avec la date
+        produitMoisRepository.save(new ProduitMois(null, produit, dateProduit));
+
         return "redirect:/form-inserer-produit-moi";
     }
 
     @GetMapping("/afficher-produit-mois")
-    public String afficherProduitMoi(Model model) {
-        List<ProduitMois> produitMois = produitMoisRepository.findByDateConseil(LocalDate.now());
+public String afficherProduitMoi(Model model) {
+    // Obtenir l'année et le mois actuels
+    LocalDate today = LocalDate.now();
+    int annee = today.getYear();
+    int mois = today.getMonthValue();
 
-        model.addAttribute("produitMois", produitMois);
+    // Chercher les produits qui correspondent à l'année et au mois
+    List<ProduitMois> produitMois = produitMoisRepository.findByDateConseilYearAndMonth(annee, mois);
 
-        return "afficher-liste-produit-mois";
-    }
+    model.addAttribute("produitMois", produitMois);
+
+    return "afficher-liste-produit-mois";
+}
+
 
     @GetMapping("/liste-produits")
     public String getListeProduit(Model model) {
@@ -146,6 +156,5 @@ public class ProduitController {
         model.addAttribute("produits", produits);
         return "liste-produit";
     }
-    
 
 }
