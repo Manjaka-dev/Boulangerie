@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS "produit" (
     "id_produit" SERIAL PRIMARY KEY,
     "nom_produit" VARCHAR(50) NOT NULL,
     "prix_unitaire" NUMERIC(15,2) NOT NULL,
-    "id_categorie" INT NOT NULL,
+    "id_categorie" INT ,
     "est_nature" BOOLEAN NOT NULL DEFAULT FALSE,
     CONSTRAINT "unique_nom_produit" UNIQUE("nom_produit"),
     CONSTRAINT "fk_produit_categorie"

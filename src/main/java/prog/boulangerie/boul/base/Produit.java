@@ -38,7 +38,7 @@ public class Produit {
     private Boolean estNature;
 
     @ManyToOne
-    @JoinColumn(name = "id_categorie", nullable = false)
+    @JoinColumn(name = "id_categorie", nullable = true)
     private Categorie categorie;
 
     @OneToMany(mappedBy = "produit", cascade = CascadeType.ALL)

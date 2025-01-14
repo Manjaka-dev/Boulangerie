@@ -92,17 +92,17 @@ public class ProduitController {
     }
 
     @GetMapping("/form-insert-produit")
-    public String getMethodName(@RequestParam String param) {
+    public String getMethodName() {
         return "insertion-produit";
     }
 
     @PostMapping("/insert-produit")
     public String postMethodName(
-        @RequestParam String nomProduit,
+        @RequestParam String nom,
         @RequestParam Double prixUnitaire,
         @RequestParam Boolean nature  ) {
         
-        produitRepository.save(new Produit(null, nomProduit, prixUnitaire, nature, null, null));
+        produitRepository.save(new Produit(null, nom, prixUnitaire, nature, null, null));
         
         return "redirect:/form-insert-produit";
     }
