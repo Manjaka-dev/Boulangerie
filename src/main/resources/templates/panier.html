@@ -27,6 +27,16 @@
                 </option>
             </select>
         </div>
+        <div class="mb-3">
+            <label for="vendeurSelect" class="form-label">Choisissez un Client</label>
+            <select id="vendeurSelect" name="vendeurId" class="form-select" required>
+                <option value="" disabled selected>-- Sélectionnez un vendeur --</option>
+                <option th:each="vendeur : ${vendeurs}"
+                        th:value="${vendeur.id}"
+                        th:text="${vendeur.nomVendeur}">
+                </option>
+            </select>
+        </div>
 
         <!-- Tableau des produits dans le panier -->
         <div th:if="${panier != null && !panier.isEmpty()}">

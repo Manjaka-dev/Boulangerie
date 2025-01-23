@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 import prog.boulangerie.boul.base.Client;
 import prog.boulangerie.boul.base.DetailVente;
 import prog.boulangerie.boul.base.Produit;
+import prog.boulangerie.boul.base.Vendeur;
 import prog.boulangerie.boul.base.Vente;
 import prog.boulangerie.boul.repository.CLientRepository;
 import prog.boulangerie.boul.repository.DetailVenteRepository;
+import prog.boulangerie.boul.repository.VendeurRepository;
 import prog.boulangerie.boul.repository.VenteRepository;
 
 @Service
@@ -28,7 +30,9 @@ public class VenteService {
     @Autowired
     private CLientRepository cLientRepository;
 
-    public void validationPanier(Map<Produit, Integer> panier, Long clientId) {
+    private VendeurRepository vendeurRepository;
+
+    public void validationPanier(Map<Produit, Integer> panier, Long clientId, Long vendeurId) {
         // Vérifier si le panier est vide
         if (panier == null || panier.isEmpty()) {
             throw new IllegalArgumentException("Le panier est vide.");
@@ -43,11 +47,14 @@ public class VenteService {
                 .mapToDouble(entry -> entry.getKey().getPrixUnitaire().doubleValue() * entry.getValue())
                 .sum();
 
+        Vendeur vendeur = vendeurRepository.findById(vendeurId)
+                .orElseThrow(() -> new IllegalArgumentException("Vendeur non trouvé avec l'ID : " + vendeurId));
         // Créer une nouvelle vente
         Vente vente = new Vente();
         vente.setDateVente(Timestamp.valueOf(LocalDateTime.now())); // Date actuelle
         vente.setPrixTotal(BigDecimal.valueOf(prixTotal));
         vente.setClient(client); // Associer le client à la vente
+        vente.setVendeur(vendeur); // Associer le vendeur à la vente
 
         // Enregistrer la vente dans la base de données
         vente = venteRepository.save(vente);
@@ -67,8 +74,11 @@ public class VenteService {
         }
     }
 
-    public float calculCommition(Vente vente){
-        return vente.getPrixTotal().floatValue() * 0.1f;
+    public float calculCommition(Vente vente, float comMinimal, float pourcentage) {
+        if (vente.getPrixTotal().floatValue() >  comMinimal) {
+            return vente.getPrixTotal().floatValue() * pourcentage;
+        }
+        return 0;
     }
 
 }

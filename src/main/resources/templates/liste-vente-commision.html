@@ -14,18 +14,26 @@
                 <div class="col-md-3">
                     <label for="vendeur" class="form-label">Vendeur</label>
                     <select id="vendeur" name="vendeurId" class="form-select">
+                        <option th:value="-1" selected>-- Sélectionnez un vendeur --</option>
                         <option th:each="vendeur : ${vendeurs}" th:value="${vendeur.id}" th:text="${vendeur.nomVendeur}">Vendeur</option>
                     </select>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
+                    <label for="genre" class="form-label">Vendeur</label>
+                    <select id="genre" name="genreId" class="form-select">
+                        <option th:value="-1" selected>Homme et Femme</option>
+                        <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.nomGenre}">Vendeur</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
                     <label for="dateDebut" class="form-label">Date de Vente</label>
                     <input type="date" id="dateDebut" name="dateDebut" class="form-control">
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label for="dateFin" class="form-label">Date de Vente</label>
                     <input type="date" id="dateFin" name="dateFin" class="form-control">
                 </div>
-                <div class="col-md-3 d-flex align-items-end">
+                <div class="col-md-2 d-flex align-items-end">
                     <button type="submit" class="btn btn-primary">Rechercher</button>
                 </div>
             </div>
@@ -36,16 +44,19 @@
                 <tr>
                     <th>#</th>
                     <th>Nom du Vendeur</th>
+                    <th>Genre</th>
                     <th>Date de Vente</th>
                     <th>Commission</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="vente, iterStat : ${ventes}">
+                <tr th:each="vente, iterStat : ${ventes}" 
+                    th:if="${commitions[iterStat.index] > 0}">
                     <td th:text="${iterStat.count}">1</td>
                     <td th:text="${vente.vendeur.nomVendeur}">Nom Vendeur</td>
+                    <td th:text="${vente.vendeur.genre.nomGenre}">Genre</td>
                     <td th:text="${#dates.format(vente.dateVente, 'dd/MM/yyyy HH:mm')}">01/01/2025 12:00</td>
-                    <td th:text="${commitions[iterStat.index]} + ' €'">10.00 €</td>
+                    <td th:text="${commitions[iterStat.index]} + ' Ar'">10.00 Ar</td>
                 </tr>
             </tbody>
         </table>

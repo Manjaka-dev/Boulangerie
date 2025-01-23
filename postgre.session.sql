@@ -12,11 +12,21 @@ CREATE TABLE IF NOT EXISTS "client" (
     CONSTRAINT "unique_nom_client" UNIQUE("nom_client")
 );
 
+CREATE TABLE IF NOT EXISTS "genre" (
+    "id_genre" SERIAL PRIMARY KEY,
+    "nom_genre" VARCHAR(50) NOT NULL,
+    CONSTRAINT "unique_nom_genre" UNIQUE("nom_genre")
+);
+
 -- Création de la table vendeur
 CREATE TABLE IF NOT EXISTS "vendeur" (
     "id_vendeur" SERIAL PRIMARY KEY,
     "nom_vendeur" VARCHAR(100) NOT NULL,
-    CONSTRAINT "unique_nom_vendeur" UNIQUE("nom_vendeur")
+    "id_genre" INT NOT NULL,
+    CONSTRAINT "unique_nom_vendeur" UNIQUE("nom_vendeur"),
+    CONSTRAINT "fk_vendeur_genre"
+        FOREIGN KEY ("id_genre") REFERENCES "genre"("id_genre")
+        ON DELETE CASCADE
 );
 
 -- Création de la table vente

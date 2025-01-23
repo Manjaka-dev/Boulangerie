@@ -11,10 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import prog.boulangerie.boul.base.Client;
+import prog.boulangerie.boul.base.Genre;
 import prog.boulangerie.boul.base.Produit;
 import prog.boulangerie.boul.base.Vendeur;
 import prog.boulangerie.boul.base.Vente;
 import prog.boulangerie.boul.repository.CLientRepository;
+import prog.boulangerie.boul.repository.GenreRepository;
 import prog.boulangerie.boul.repository.ProduitRepository;
 import prog.boulangerie.boul.repository.VendeurRepository;
 import prog.boulangerie.boul.repository.VenteRepository;
@@ -45,6 +47,9 @@ public class VenteController {
 
     @Autowired
     private VendeurRepository vendeurRepository;
+
+    @Autowired
+    private GenreRepository genreRepository;
 
     // Afficher la liste des produits
     @GetMapping("/ajout-produit-panier")
@@ -107,6 +112,9 @@ public class VenteController {
         List<Client> clients = clientRepository.findAll();
         model.addAttribute("clients", clients);
 
+        List<Vendeur> vendeurs = vendeurRepository.findAll();
+        model.addAttribute("vendeurs", vendeurs);
+
         // Vérifier si le panier est vide
         if (panier == null || panier.isEmpty()) {
             model.addAttribute("message", "Votre panier est vide.");
@@ -126,6 +134,7 @@ public class VenteController {
     @PostMapping("/validation-panier")
     public String validationPanier(
             @RequestParam("clientId") Long clientId,
+            @RequestParam("vendeurId") Long vendeurId,
             HttpSession session,
             RedirectAttributes redirectAttributes) {
 
@@ -134,7 +143,7 @@ public class VenteController {
 
         try {
             // Appeler le service pour valider le panier
-            venteService.validationPanier(panier, clientId);
+            venteService.validationPanier(panier, clientId, vendeurId);
 
             // Vider le panier après validation
             session.removeAttribute("panier");
@@ -171,14 +180,20 @@ public class VenteController {
 
         List<Float> commission = new ArrayList<>();
 
+        float prixMax = 200000;
+        float pourcentage = 0.05f;
+
         for (Vente vente : ventes) {
-            commission.add(venteService.calculCommition(vente));
+            commission.add(venteService.calculCommition(vente, prixMax, pourcentage));
         }
 
         model.addAttribute("commitions", commission);
 
         List<Vendeur> vendeurs  =vendeurRepository.findAll();
         model.addAttribute("vendeurs", vendeurs);
+
+        List<Genre> genres = genreRepository.findAll();
+        model.addAttribute("genres", genres);
 
         return "liste-vente-commision";
     }
@@ -188,24 +203,39 @@ public class VenteController {
         @RequestParam("dateFin") String dateFin, 
         @RequestParam("dateDebut") String dateDebut, 
         @RequestParam("vendeurId") Long vendeurId,
+        @RequestParam("genreId") Long genreId,
         Model model) {
-        Vendeur vendeur = vendeurRepository.findById(vendeurId).get();
 
         Timestamp timestampFin = Timestamp.valueOf(dateFin + " 00:00:00");
         Timestamp timestampDebut = Timestamp.valueOf(dateDebut + " 00:00:00");
+        List<Vente> ventes = new ArrayList<>();
+        if (vendeurId != -1) {
+            Vendeur vendeur = vendeurRepository.findById(vendeurId).get();
+            ventes = venteRepository.findVentesByVendeurAndDateRange(vendeur, timestampDebut, timestampFin);
+        } else if (genreId != -1) {
+            Genre genre = genreRepository.findById(genreId).get();
+            ventes = venteRepository.findVentesByVendeurGenreAndDateRange(genre, timestampDebut, timestampFin);
+        } else {
+            ventes = venteRepository.findByDateVenteBetween(timestampDebut, timestampFin);
+        }
 
-        List<Vente> ventes = venteRepository.findVentesByVendeurAndDateRange(vendeur, timestampDebut, timestampFin);
         model.addAttribute("ventes", ventes);
 
         List<Float> commitions = new ArrayList<>();
 
+        float prixMax = 200000;
+        float pourcentage = 0.05f;
+
         for (Vente vente : ventes) {
-            commitions.add(venteService.calculCommition(vente));
+            commitions.add(venteService.calculCommition(vente, prixMax, pourcentage));
         }
         model.addAttribute("commitions", commitions);
 
         List<Vendeur> vendeurs = vendeurRepository.findAll();
         model.addAttribute("vendeurs", vendeurs);
+
+        List<Genre> genres = genreRepository.findAll();
+        model.addAttribute("genres", genres);
 
         
         return "liste-vente-commision";

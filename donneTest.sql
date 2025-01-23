@@ -25,37 +25,42 @@ INSERT INTO "type_mouvement" ("nom_type_mouvement") VALUES
 -- Insertion des produits
 INSERT INTO "produit" ("nom_produit", "prix_unitaire", "id_categorie", "est_nature") 
 VALUES
-('Baguette Tradition', 1.10, 3, TRUE),
-('Croissant Nature', 1.20, 1, TRUE),
-('Croissant au Chocolat', 1.50, 1, FALSE),
-('Pain au Lait', 0.90, 3, TRUE),
-('Pain aux Raisins', 1.30, 1, FALSE),
-('Tarte aux Pommes', 4.50, 4, TRUE),
-('Tarte au Citron Meringuée', 5.00, 4, FALSE),
-('Éclair au Chocolat', 2.50, 2, FALSE),
-('Éclair à la Vanille', 2.50, 2, FALSE),
-('Gâteau au Chocolat', 15.00, 2, FALSE),
-('Brioche Nature', 3.00, 3, TRUE),
-('Brioche au Sucre', 3.20, 3, FALSE),
-('Canelé', 1.00, 2, TRUE),
-('Mille-feuille', 2.80, 2, FALSE),
-('Tartelette aux Fraises', 3.50, 4, FALSE),
-('Cookies', 1.50, 5, FALSE),
-('Brownies', 2.00, 5, FALSE),
-('Chausson aux Pommes', 1.80, 1, FALSE),
-('Quiche Lorraine', 3.50, 5, FALSE),
-('Sandwich Jambon-Beurre', 3.00, 5, TRUE),
-('Jus d’Orange Pressé', 2.50, 6, TRUE),
-('Café', 1.80, 6, TRUE),
-('Chocolat Chaud', 2.00, 6, FALSE);
+('Baguette Tradition', 11000, 3, TRUE),
+('Croissant Nature', 12000, 1, TRUE),
+('Croissant au Chocolat', 15000, 1, FALSE),
+('Pain au Lait', 9000, 3, TRUE),
+('Pain aux Raisins', 13000, 1, FALSE),
+('Tarte aux Pommes', 45000, 4, TRUE),
+('Tarte au Citron Meringuée', 50000, 4, FALSE),
+('Éclair au Chocolat', 25000, 2, FALSE),
+('Éclair à la Vanille', 25000, 2, FALSE),
+('Gâteau au Chocolat', 15000, 2, FALSE),
+('Brioche Nature', 39000, 3, TRUE),
+('Brioche au Sucre', 32000, 3, FALSE),
+('Canelé', 1000, 2, TRUE),
+('Mille-feuille', 28000, 2, FALSE),
+('Tartelette aux Fraises', 35000, 4, FALSE),
+('Cookies', 10500, 5, FALSE),
+('Brownies', 20000, 5, FALSE),
+('Chausson aux Pommes', 10800, 1, FALSE),
+('Quiche Lorraine', 35000, 5, FALSE),
+('Sandwich Jambon-Beurre', 30000, 5, TRUE),
+('Jus d’Orange Pressé', 25000, 6, TRUE),
+('Café', 18000, 6, TRUE),
+('Chocolat Chaud', 20000, 6, FALSE);
+
+INSERT INTO "genre" ("nom_genre") VALUES
+('Homme'),
+('Femme');
+
 
 -- Insertion des vendeurs
-INSERT INTO "vendeur" ("nom_vendeur") VALUES
-('Alice Dubois'),
-('Bernard Lemoine'),
-('Caroline Marchand'),
-('David Lefèvre'),
-('Émilie Renaud');
+INSERT INTO "vendeur" ("nom_vendeur", "id_genre") VALUES
+('Alice Dubois', 2),
+('Bernard Lemoine', 1),
+('Caroline Marchand', 2),
+('David Lefèvre', 1),
+('Émilie Renaud', 2);
 
 -- Insertion des clients
 INSERT INTO "client" ("nom_client") 
@@ -69,11 +74,11 @@ VALUES
 -- Insertion des ventes avec la référence au client et au vendeur
 INSERT INTO "vente" ("date_vente", "prix_total", "id_client", "id_vendeur") 
 VALUES
-('2025-01-05 09:30:00', 32.50, 1, 1), -- Vente effectuée par Alice Dubois à Marie Dupont
-('2025-01-06 14:00:00', 45.00, 2, 2), -- Vente effectuée par Bernard Lemoine à Jean Martin
-('2025-01-07 11:15:00', 58.20, 3, 3), -- Vente effectuée par Caroline Marchand à Claire Leblanc
-('2025-01-08 16:45:00', 22.00, 4, 4), -- Vente effectuée par David Lefèvre à Paul Durand
-('2025-01-09 13:30:00', 78.50, 5, 5); -- Vente effectuée par Émilie Renaud à Sophie Morel
+('2025-01-05 09:30:00', 260000, 1, 1), -- Vente effectuée par Alice Dubois à Marie Dupont
+('2025-01-06 14:00:00', 4500, 2, 2), -- Vente effectuée par Bernard Lemoine à Jean Martin
+('2025-01-07 11:15:00', 582000, 3, 3), -- Vente effectuée par Caroline Marchand à Claire Leblanc
+('2025-01-08 16:45:00', 220000, 4, 4), -- Vente effectuée par David Lefèvre à Paul Durand
+('2025-01-09 13:30:00', 78500, 5, 5); -- Vente effectuée par Émilie Renaud à Sophie Morel
 
 -- Insertion dans la table detail_stock_ingredient
 INSERT INTO "detail_stock_ingredient" ("date_mouvement", "quantite", "id_type_mouvement") 
