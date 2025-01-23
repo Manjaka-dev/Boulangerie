@@ -4,10 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import prog.boulangerie.boul.base.DetailVente;
-import java.util.List;
-import java.util.Date;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 @Repository
 public interface DetailVenteRepository extends JpaRepository<DetailVente,Long> {

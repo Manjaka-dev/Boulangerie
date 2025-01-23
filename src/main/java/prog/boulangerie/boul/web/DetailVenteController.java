@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import prog.boulangerie.boul.base.DetailVente;
 import prog.boulangerie.boul.repository.DetailVenteRepository;
 import prog.boulangerie.boul.service.DetailVenteService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 

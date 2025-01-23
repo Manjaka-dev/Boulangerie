@@ -14,7 +14,6 @@ import prog.boulangerie.boul.base.Produit;
 import prog.boulangerie.boul.base.Vente;
 import prog.boulangerie.boul.repository.CLientRepository;
 import prog.boulangerie.boul.repository.DetailVenteRepository;
-import prog.boulangerie.boul.repository.ProduitRepository;
 import prog.boulangerie.boul.repository.VenteRepository;
 
 @Service
@@ -25,9 +24,6 @@ public class VenteService {
 
     @Autowired
     private DetailVenteRepository detailVenteRepository;
-
-    @Autowired
-    private ProduitRepository produitRepository;
 
     @Autowired
     private CLientRepository cLientRepository;
