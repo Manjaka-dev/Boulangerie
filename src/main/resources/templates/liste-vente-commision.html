@@ -44,13 +44,13 @@
                 <tr th:each="vente, iterStat : ${ventes}">
                     <td th:text="${iterStat.count}">1</td>
                     <td th:text="${vente.vendeur.nomVendeur}">Nom Vendeur</td>
-                    <td th:text="${#dates.format(vente.dateVente.toLocalDateTime(), 'dd/MM/yyyy HH:mm')}">01/01/2025 12:00</td>
+                    <td th:text="${#dates.format(vente.dateVente, 'dd/MM/yyyy HH:mm')}">01/01/2025 12:00</td>
                     <td th:text="${commitions[iterStat.index]} + ' €'">10.00 €</td>
                 </tr>
             </tbody>
         </table>
 
-        <a href="/" class="btn btn-primary">Retour à l'accueil</a>
+        <a href="/liste-vente-commition" class="btn btn-primary">Retour à la liste</a>
     </div>
 </body>
 </html>

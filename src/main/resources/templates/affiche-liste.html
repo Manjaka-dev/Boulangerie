@@ -16,7 +16,7 @@
         <div th:if="${liste.produit != null}">
             <ul class="list-group mb-4">
                 <!-- Liste des produits -->
-                <li class="list-group-item" th:each="produit : ${liste.produit}" th:text="${produit.nom}">Nom du produit</li>
+                <li class="list-group-item" th:each="produit : ${liste.produit}" th:text="${produit.nomProduit}">Nom du produit</li>
             </ul>
         </div>
         
