@@ -157,4 +157,17 @@ public String afficherProduitMoi(Model model) {
         return "liste-produit";
     }
 
+    @GetMapping("/historique-produit-moi")
+    public String getHistoriqueproduitmoi(Model model) {
+        int annee = 2024;
+
+        List<ProduitMois> produitMois = produitMoisRepository.findByDateConseilYear(annee);
+
+        model.addAttribute("produitMois", produitMois);
+        model.addAttribute("annee", annee);
+
+        return "hitsorique-produit-moi";
+    }
+    
+
 }

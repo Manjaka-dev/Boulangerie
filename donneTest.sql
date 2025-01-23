@@ -1,12 +1,13 @@
+-- Insertion des catégories
 INSERT INTO "categorie" ("nom_categorie") VALUES
-('Viennoiseries'), 
-('Pâtisseries'), 
-('Pain'), 
-('Tartes'), 
-('Snacks'), 
-('Boissons');
+('Pâtisserie'),
+('Viennoiserie'),
+('Boulangerie'),
+('Tarte'),
+('Snack'),
+('Boisson');
 
-
+-- Insertion des unités
 INSERT INTO "unite" ("nom_unite") VALUES
 ('Kilogrammes'), 
 ('Litres'), 
@@ -14,14 +15,14 @@ INSERT INTO "unite" ("nom_unite") VALUES
 ('Paquets'), 
 ('Boîtes');
 
-
+-- Insertion des types de mouvement
 INSERT INTO "type_mouvement" ("nom_type_mouvement") VALUES
 ('Production'), 
 ('Vente'), 
 ('Retour'), 
 ('Perte');
 
-
+-- Insertion des produits
 INSERT INTO "produit" ("nom_produit", "prix_unitaire", "id_categorie", "est_nature") 
 VALUES
 ('Baguette Tradition', 1.10, 3, TRUE),
@@ -48,14 +49,31 @@ VALUES
 ('Café', 1.80, 6, TRUE),
 ('Chocolat Chaud', 2.00, 6, FALSE);
 
+-- Insertion des vendeurs
+INSERT INTO "vendeur" ("nom_vendeur") VALUES
+('Alice Dubois'),
+('Bernard Lemoine'),
+('Caroline Marchand'),
+('David Lefèvre'),
+('Émilie Renaud');
 
-
-INSERT INTO "vente" ("date_vente", "prix_total") 
+-- Insertion des clients
+INSERT INTO "client" ("nom_client") 
 VALUES
-('2025-01-01 10:00:00', 50.00),
-('2025-01-02 14:30:00', 75.00),
-('2025-01-03 16:00:00', 100.00),
-('2025-01-31 12:00:00', 60.00);
+('Marie Dupont'),
+('Jean Martin'),
+('Claire Leblanc'),
+('Paul Durand'),
+('Sophie Morel');
+
+-- Insertion des ventes avec la référence au client et au vendeur
+INSERT INTO "vente" ("date_vente", "prix_total", "id_client", "id_vendeur") 
+VALUES
+('2025-01-05 09:30:00', 32.50, 1, 1), -- Vente effectuée par Alice Dubois à Marie Dupont
+('2025-01-06 14:00:00', 45.00, 2, 2), -- Vente effectuée par Bernard Lemoine à Jean Martin
+('2025-01-07 11:15:00', 58.20, 3, 3), -- Vente effectuée par Caroline Marchand à Claire Leblanc
+('2025-01-08 16:45:00', 22.00, 4, 4), -- Vente effectuée par David Lefèvre à Paul Durand
+('2025-01-09 13:30:00', 78.50, 5, 5); -- Vente effectuée par Émilie Renaud à Sophie Morel
 
 -- Insertion dans la table detail_stock_ingredient
 INSERT INTO "detail_stock_ingredient" ("date_mouvement", "quantite", "id_type_mouvement") 
@@ -67,10 +85,13 @@ VALUES
 -- Insertion dans la table detail_vente
 INSERT INTO "detail_vente" ("quantite", "id_produit", "id_vente") 
 VALUES
-(2, 1, 1),
-(3, 2, 2),
-(1, 3, 3);
+(2, 1, 1), -- 2 Baguettes Tradition pour la vente 1
+(3, 2, 2), -- 3 Croissants Nature pour la vente 2
+(1, 6, 3), -- 1 Tarte aux Pommes pour la vente 3
+(4, 3, 4), -- 4 Croissants au Chocolat pour la vente 4
+(1, 10, 5); -- 1 Gâteau au Chocolat pour la vente 5
 
+-- Insertion des ingrédients
 INSERT INTO "ingredient" ("nom_ingredient", "prix_unitaire", "id_unite") 
 VALUES
 ('Farine', 1.20, 1),
@@ -86,8 +107,6 @@ VALUES
 ('Fraises', 4.00, 1),
 ('Vanille', 10.00, 1),
 ('Cacao', 2.50, 1);
-
-
 
 -- Insertion dans la table stock_ingredient
 INSERT INTO "stock_ingredient" ("quantite_ingredient", "id_ingredient") 

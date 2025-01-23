@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Ventes et Commissions</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Liste des Ventes et Commissions</h2>
+
+        <!-- Formulaire de recherche -->
+        <form th:action="@{/liste-vente-commition}" method="post" class="mb-4">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="vendeur" class="form-label">Vendeur</label>
+                    <select id="vendeur" name="vendeurId" class="form-select">
+                        <option th:each="vendeur : ${vendeurs}" th:value="${vendeur.id}" th:text="${vendeur.nomVendeur}">Vendeur</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="dateDebut" class="form-label">Date de Vente</label>
+                    <input type="date" id="dateDebut" name="dateDebut" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <label for="dateFin" class="form-label">Date de Vente</label>
+                    <input type="date" id="dateFin" name="dateFin" class="form-control">
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary">Rechercher</button>
+                </div>
+            </div>
+        </form>
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nom du Vendeur</th>
+                    <th>Date de Vente</th>
+                    <th>Commission</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="vente, iterStat : ${ventes}">
+                    <td th:text="${iterStat.count}">1</td>
+                    <td th:text="${vente.vendeur.nomVendeur}">Nom Vendeur</td>
+                    <td th:text="${#dates.format(vente.dateVente.toLocalDateTime(), 'dd/MM/yyyy HH:mm')}">01/01/2025 12:00</td>
+                    <td th:text="${commitions[iterStat.index]} + ' €'">10.00 €</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="/" class="btn btn-primary">Retour à l'accueil</a>
+    </div>
+</body>
+</html>

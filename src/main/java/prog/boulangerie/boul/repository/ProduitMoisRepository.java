@@ -17,4 +17,7 @@ public interface ProduitMoisRepository extends JpaRepository<ProduitMois,Long> {
 
     @Query("SELECT p FROM ProduitMois p WHERE YEAR(p.dateConseil) = :annee AND MONTH(p.dateConseil) = :mois")
     List<ProduitMois> findByDateConseilYearAndMonth(@Param("annee") int annee, @Param("mois") int mois);
+
+    @Query("SELECT p FROM ProduitMois p WHERE YEAR(p.dateConseil) = :annee")
+    List<ProduitMois> findByDateConseilYear(@Param("annee") int annee);
 }
