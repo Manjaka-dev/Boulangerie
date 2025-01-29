@@ -99,7 +99,7 @@ public class ProduitController {
             @RequestParam Double prixUnitaire,
             @RequestParam Boolean nature) {
 
-        produitRepository.save(new Produit(null, nom, prixUnitaire, nature, null, null));
+        produitRepository.save(new Produit(null, nom, prixUnitaire, nature, null, null, null));
 
         return "redirect:/form-insert-produit";
     }

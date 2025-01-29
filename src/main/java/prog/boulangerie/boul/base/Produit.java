@@ -43,4 +43,8 @@ public class Produit {
 
     @OneToMany(mappedBy = "produit", cascade = CascadeType.ALL)
     private List<ProduitMois> produitMoisList;
+
+    // Nouvelle relation avec HistoriquePrix
+    @OneToMany(mappedBy = "produit", cascade = CascadeType.ALL)
+    private List<HistoriquePrix> historiquePrixList;
 }

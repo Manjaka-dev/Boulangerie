@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS "client" (
     CONSTRAINT "unique_nom_client" UNIQUE("nom_client")
 );
 
+-- Création de la table genre
 CREATE TABLE IF NOT EXISTS "genre" (
     "id_genre" SERIAL PRIMARY KEY,
     "nom_genre" VARCHAR(50) NOT NULL,
@@ -58,18 +59,7 @@ CREATE TABLE IF NOT EXISTS "type_mouvement" (
     CONSTRAINT "unique_nom_type_mouvement" UNIQUE("nom_type_mouvement")
 );
 
--- Création de la table detail_stock_ingredient
-CREATE TABLE IF NOT EXISTS "detail_stock_ingredient" (
-    "id_detail_stock_ingredient" SERIAL PRIMARY KEY,
-    "date_mouvement" DATE NOT NULL,
-    "quantite" INT NOT NULL,
-    "id_type_mouvement" INT NOT NULL,
-    CONSTRAINT "fk_detail_stock_ingredient_type_mouvement"
-        FOREIGN KEY ("id_type_mouvement") REFERENCES "type_mouvement"("id_type_mouvement")
-        ON DELETE CASCADE
-);
-
--- Création de la table produit avec une nouvelle colonne est_nature
+-- Création de la table produit
 CREATE TABLE IF NOT EXISTS "produit" (
     "id_produit" SERIAL PRIMARY KEY,
     "nom_produit" VARCHAR(50) NOT NULL,
@@ -80,6 +70,17 @@ CREATE TABLE IF NOT EXISTS "produit" (
     CONSTRAINT "fk_produit_categorie"
         FOREIGN KEY ("id_categorie")
         REFERENCES "categorie"("id_categorie")
+        ON DELETE CASCADE
+);
+
+-- Création de la table historique_prix
+CREATE TABLE IF NOT EXISTS "historique_prix" (
+    "id_historique_prix" SERIAL PRIMARY KEY,
+    "id_produit" INT NOT NULL,
+    "prix" NUMERIC(15,2) NOT NULL,
+    "date_modif" DATE NOT NULL,
+    CONSTRAINT "fk_historique_prix_produit"
+        FOREIGN KEY ("id_produit") REFERENCES "produit"("id_produit")
         ON DELETE CASCADE
 );
 

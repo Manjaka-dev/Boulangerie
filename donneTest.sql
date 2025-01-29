@@ -49,6 +49,125 @@ VALUES
 ('Café', 18000, 6, TRUE),
 ('Chocolat Chaud', 20000, 6, FALSE);
 
+-- Génération de l'historique des prix pour les produits
+INSERT INTO "historique_prix" ("id_produit", "prix", "date_modif")
+VALUES
+-- Historique pour Baguette Tradition
+(1, 10000, '2024-01-01'),
+(1, 10500, '2024-06-01'),
+(1, 11000, '2025-01-01'),
+
+-- Historique pour Croissant Nature
+(2, 11000, '2024-01-01'),
+(2, 11500, '2024-06-01'),
+(2, 12000, '2025-01-01'),
+
+-- Historique pour Croissant au Chocolat
+(3, 14000, '2024-02-01'),
+(3, 14500, '2024-07-01'),
+(3, 15000, '2025-01-01'),
+
+-- Historique pour Pain au Lait
+(4, 8500, '2024-03-01'),
+(4, 8800, '2024-09-01'),
+(4, 9000, '2025-01-01'),
+
+-- Historique pour Pain aux Raisins
+(5, 12000, '2024-04-01'),
+(5, 12500, '2024-10-01'),
+(5, 13000, '2025-01-01'),
+
+-- Historique pour Tarte aux Pommes
+(6, 42000, '2024-05-01'),
+(6, 43000, '2024-11-01'),
+(6, 45000, '2025-01-01'),
+
+-- Historique pour Tarte au Citron Meringuée
+(7, 48000, '2024-06-01'),
+(7, 49000, '2024-12-01'),
+(7, 50000, '2025-01-01'),
+
+-- Historique pour Éclair au Chocolat
+(8, 23000, '2024-07-01'),
+(8, 24000, '2024-11-01'),
+(8, 25000, '2025-01-01'),
+
+-- Historique pour Éclair à la Vanille
+(9, 23000, '2024-07-01'),
+(9, 24000, '2024-11-01'),
+(9, 25000, '2025-01-01'),
+
+-- Historique pour Gâteau au Chocolat
+(10, 14000, '2024-08-01'),
+(10, 14500, '2024-12-01'),
+(10, 15000, '2025-01-01'),
+
+-- Historique pour Brioche Nature
+(11, 37000, '2024-09-01'),
+(11, 38000, '2024-12-01'),
+(11, 39000, '2025-01-01'),
+
+-- Historique pour Brioche au Sucre
+(12, 30000, '2024-09-01'),
+(12, 31000, '2024-12-01'),
+(12, 32000, '2025-01-01'),
+
+-- Historique pour Canelé
+(13, 900, '2024-10-01'),
+(13, 950, '2024-12-01'),
+(13, 1000, '2025-01-01'),
+
+-- Historique pour Mille-feuille
+(14, 27000, '2024-11-01'),
+(14, 27500, '2024-12-01'),
+(14, 28000, '2025-01-01'),
+
+-- Historique pour Tartelette aux Fraises
+(15, 33000, '2024-11-01'),
+(15, 34000, '2024-12-01'),
+(15, 35000, '2025-01-01'),
+
+-- Historique pour Cookies
+(16, 10000, '2024-12-01'),
+(16, 10250, '2024-12-15'),
+(16, 10500, '2025-01-01'),
+
+-- Historique pour Brownies
+(17, 19000, '2024-12-01'),
+(17, 19500, '2024-12-15'),
+(17, 20000, '2025-01-01'),
+
+-- Historique pour Chausson aux Pommes
+(18, 10000, '2024-12-01'),
+(18, 10400, '2024-12-15'),
+(18, 10800, '2025-01-01'),
+
+-- Historique pour Quiche Lorraine
+(19, 33000, '2024-12-01'),
+(19, 34000, '2024-12-15'),
+(19, 35000, '2025-01-01'),
+
+-- Historique pour Sandwich Jambon-Beurre
+(20, 29000, '2024-12-01'),
+(20, 29500, '2024-12-15'),
+(20, 30000, '2025-01-01'),
+
+-- Historique pour Jus d’Orange Pressé
+(21, 24000, '2024-12-01'),
+(21, 24500, '2024-12-15'),
+(21, 25000, '2025-01-01'),
+
+-- Historique pour Café
+(22, 17000, '2024-12-01'),
+(22, 17500, '2024-12-15'),
+(22, 18000, '2025-01-01'),
+
+-- Historique pour Chocolat Chaud
+(23, 19000, '2024-12-01'),
+(23, 19500, '2024-12-15'),
+(23, 20000, '2025-01-01');
+
+
 INSERT INTO "genre" ("nom_genre") VALUES
 ('Homme'),
 ('Femme');
@@ -80,12 +199,6 @@ VALUES
 ('2025-01-08 16:45:00', 220000, 4, 4), -- Vente effectuée par David Lefèvre à Paul Durand
 ('2025-01-09 13:30:00', 78500, 5, 5); -- Vente effectuée par Émilie Renaud à Sophie Morel
 
--- Insertion dans la table detail_stock_ingredient
-INSERT INTO "detail_stock_ingredient" ("date_mouvement", "quantite", "id_type_mouvement") 
-VALUES
-('2025-01-01', 50, 1),
-('2025-01-02', 40, 2),
-('2025-01-03', 30, 3);
 
 -- Insertion dans la table detail_vente
 INSERT INTO "detail_vente" ("quantite", "id_produit", "id_vente") 
